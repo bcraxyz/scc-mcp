@@ -3,8 +3,9 @@ FROM python:3.11-slim AS build
 
 WORKDIR /app
 COPY pyproject.toml .
-RUN pip install --prefix=/python-deps --no-cache-dir -U pip setuptools \
- && pip install --prefix=/python-deps --no-cache-dir .
+
+RUN python -m pip install --prefix=/python-deps --no-cache-dir -U pip setuptools wheel \
+ && python -m pip install --prefix=/python-deps --no-cache-dir .
 
 COPY scc_mcp.py .
 
