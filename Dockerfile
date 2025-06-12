@@ -16,6 +16,6 @@ COPY --from=build /app /app
 ENV PYTHONPATH="/python-deps/lib/python3.11/site-packages"
 
 USER nonroot
-EXPOSE 8080
+EXPOSE 8000
 
 ENTRYPOINT ["python", "scc_mcp.py"]
