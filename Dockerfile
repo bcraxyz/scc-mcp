@@ -2,12 +2,9 @@
 FROM python:3.11-slim AS build
 
 WORKDIR /app
-COPY pyproject.toml .
+COPY pyproject.toml scc_mcp.py .
 
-RUN python -m pip install --prefix=/python-deps --no-cache-dir -U pip setuptools wheel \
- && python -m pip install --prefix=/python-deps --no-cache-dir .
-
-COPY scc_mcp.py .
+RUN pip install --prefix=/python-deps --no-cache-dir .
 
 # Stage 2 — Run (Distroless)
 FROM gcr.io/distroless/python3-debian12
