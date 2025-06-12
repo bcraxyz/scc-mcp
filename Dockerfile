@@ -2,9 +2,9 @@
 FROM python:3.11-slim AS build
 
 WORKDIR /app
-COPY pyproject.toml scc_mcp.py ./
+COPY requirements.txt scc_mcp.py ./
 
-RUN pip install --prefix=/python-deps --no-cache-dir .
+RUN pip install --prefix=/python-deps --no-cache-dir -r requirements.txt
 
 # Stage 2 — Run (Distroless)
 FROM gcr.io/distroless/python3-debian12
@@ -16,6 +16,6 @@ COPY --from=build /app /app
 ENV PYTHONPATH="/python-deps/lib/python3.11/site-packages"
 
 USER nonroot
-EXPOSE 8000
+EXPOSE 8080
 
 ENTRYPOINT ["python", "scc_mcp.py"]
